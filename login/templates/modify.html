@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}订单修改{% endblock %}
+{% block css %}
+<link rel='stylesheet' href='{% static "/css/bootstrap-datetimepicker.min.css" %}' />
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form class="form-horizontal" action="{% url "login:modify" order_id%}" method="post">
+            {% csrf_token %}
+            {% if message %}
+                <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+            <div class="form-group">
+                <label for="dtp_input2" class="col-sm-2 control-label">{{ order_form.name.label }}</label>
+                <div class="col-sm-10">
+                    <select name="name" class="form-control" id="id_name">
+                        <option>{{ order.store_name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dtp_input2" class="col-sm-2 control-label">{{ order_form.num.label }}</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="" value="{{ order.order_num }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dtp_input2" class="col-sm-2 control-label">{{ order_form.price.label }}</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="" value="{{ order.price }}">
+                </div>
+            </div>
+			<div class="form-group">
+                <label for="dtp_input2" class="col-md-2 control-label">创建时间:</label>
+                <div class="input-group date form_date col-sm-10" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control"  type="text" value="{{ order.c_time }}" name="time" >
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+				<input type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+            <div class="form-group">
+                <label for="dtp_input2" class="col-sm-2 control-label">{{ order_form.customer_ser.label }}</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="" value="{{ order.customer_ser }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dtp_input2" class="col-sm-2 control-label">{{ order_form.author.label }}</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="" value="{{ order.author}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dtp_input2" class="col-sm-2 control-label">{{ order_form.detail.label }}</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" placeholder="" >{{ order.o_detail }}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dtp_input2" class="col-sm-2 control-label">{{ order_form.status.label }}</label>
+                <div class="col-sm-10">
+                   <select name="status_name" class="form-control" id="id_name">
+                       <option>制作</option>
+                       <option>测试</option>
+                       <option>退款</option>
+                       <option>完成</option>
+                    </select>
+                </div>
+            </div>
+        			<div class="form-group">
+                <label for="dtp_input2" class="col-md-2 control-label">完成时间:</label>
+                <div class="input-group date form_date col-sm-10" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control"  type="text" value="" name="e_time" >
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+				<input type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+{#            <button type="reset" class="btn btn-warning pull-left">重置</button>#}
+            <button type="submit" class="btn btn-primary pull-right">修改</button>
+        </form>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static "/js/jquery-3.3.1.js" %}" type="text/javascript"></script>
+     <script src="{% static "/js/bootstrap-datetimepicker.js" %}" type="text/javascript"></script>
+    <script src="{% static "/js/bootstrap-datetimepicker.zh-CN.js" %}" type="text/javascript"></script>
+  <script type="text/javascript">
+	$('.form_date').datetimepicker({
+        format: 'yyyy-m-d',
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+  </script>
+{% endblock %}
